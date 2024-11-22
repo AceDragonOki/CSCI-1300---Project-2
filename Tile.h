@@ -2,9 +2,16 @@
  - Tile type varies based on the numeric value of event.
 */
 
-#define TILE_H
-
-struct Tile{
-    char color;
-    int event;
+#pragma once
+class Tile{
+    private:
+        char color;
+        int event;
+    public: 
+        Tile();
+        Tile(char col, int eve);
+        char getColor();
+        void setColor(char col);
+        int getEvent();
+        void setEvent(int eve);
 };

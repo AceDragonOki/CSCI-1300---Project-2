@@ -1,6 +1,6 @@
-#ifndef BOARD_H
-#define BOARD_H
-#include "Tile.h"
+#pragma once
+
+//#include "Tile.h"
 
 class Board
 {
@@ -24,5 +24,3 @@ public:
     bool movePlayer(int player_index);
     int getPlayerPosition(int player_index) const;
 };
-
-#endif
