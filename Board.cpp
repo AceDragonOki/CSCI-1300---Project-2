@@ -1,3 +1,5 @@
+//Worked on by: Alec Ebert, Alex Class
+
 #include "Board.h"
 #include "Tile.h"
 #include <iostream>

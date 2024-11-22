@@ -1,3 +1,5 @@
+//Worked on by: Alec Ebert, Alex Class
+
 #include "Player.h"
 #include <iostream>
 using namespace std;

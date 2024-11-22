@@ -1,3 +1,5 @@
+//Worked on by: Alec Ebert, Alex Class
+
 #pragma once
 #include "Board.h"
 #include "Player.h"

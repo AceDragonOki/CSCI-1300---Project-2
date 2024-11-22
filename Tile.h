@@ -1,3 +1,5 @@
+//Worked on by: Alec Ebert, Alex Class
+
 /* The Tile structure contains two variables, one for color and one for event.
  - Tile type varies based on the numeric value of event.
 */
