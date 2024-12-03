@@ -1,8 +1,7 @@
 //Worked on by: Alec Ebert, Alex Class
 
 #pragma once
-
-//#include "Tile.h"
+#include "Tile.h"
 
 class Board
 {
