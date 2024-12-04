@@ -9,19 +9,17 @@
 using namespace std;
 
 int main(){
-    Player envy = Player("", 200, 200, 200);
-    Player pride = Player("", 200, 200, 200);
-    Player greed = Player("", 200, 200, 200);
-    Player sloth = Player("", 200, 200, 200);
+    GameMaster myGM;
 
-    Player players[] = {envy, pride, greed, sloth};
+    string my2DArray[10][10];
 
-    GameMaster myGameMaster;
+    myGM.parseFileInto2DArray(my2DArray, "character.txt", 4);
 
-    myGameMaster.promptForChoosingCharacters(players, 4);
-
-    players[0].printStats();
-    players[1].printStats();
-    players[2].printStats();
-    players[3].printStats();
+    for (int row = 0; row < 5; row++){
+        for (int col = 0; col < 6; col++){
+            cout << my2DArray[row][col] << " ";;
+        }
+        cout << endl;
+    }
+    
 }

@@ -64,14 +64,36 @@ int GameMaster::split(string input_string, char separator, string arr[], const i
     return x;
 }
 
-void GameMaster::parseFileInto2DArray(string arr[], string fileName, const int NUM_LINES, const int NUM_ARRAY_ITEMS)
+// Reads a txt file and parses it into a passed-in 2D array. Note that the passed-in array must have width 10, and that fileName should include the file extension (e.g. "character.txt"). Array size of 10 was chosen arbitrarily, but should fit all cases.
+void GameMaster::parseFileInto2DArray(string arr[][10], string fileName, const int NUM_ARRAY_ITEMS)
 {
-    // take in 1D array
-    // start looping through file (accessed with fileName)
-    // for each line, construct a new 1D array populated with the contents of the line of the file
-    // finally, pass the new 1D array into the passed-in 1D array
-    // return 2D array???
-    // google "C++ function to turn a file into a 2D array" and see how they deal with how shitty arrays are here
+    ifstream file(fileName);
+    if (!file.is_open())
+    {
+        cout << "Could not open file." << endl;
+        return;
+    }
+
+    string currentLine;
+    int lineIndex = 0;
+    bool firstLineSkipped = false;
+    
+    while (getline(file, currentLine))
+    {
+        if (!firstLineSkipped){ // skips header
+            firstLineSkipped = true;
+            continue;
+        }
+        string thisLinesArray[10];
+        split(currentLine, '|', thisLinesArray, 10);
+
+        // copying the values of thisLinesArray into the elements of arr[][]
+        for (int i = 0; i < NUM_ARRAY_ITEMS; i++)
+        {
+            arr[lineIndex][i] = thisLinesArray[i];
+        }
+        lineIndex++;
+    }
 }
 
 // Prompts the user to pick a character from the available characters in character.txt. Also ensures the character they choose is not picked by any other players.
@@ -92,7 +114,8 @@ void GameMaster::promptForChoosingCharacters(Player players[], const int PLAYERS
         {
             for (int j = 0; j < PLAYERS_SIZE; j++)
             {
-                if (needToPickANewName){
+                if (needToPickANewName)
+                {
                     cout << "Please choose a name not already in use." << endl;
                     cin >> chosenPlayerName;
                     needToPickANewName = false;
@@ -109,7 +132,8 @@ void GameMaster::promptForChoosingCharacters(Player players[], const int PLAYERS
         tempPlayer.setName(chosenPlayerName);
         players[i] = tempPlayer;
     }
-    cout << "\nPlayer names set. \n" << endl;
+    cout << "\nPlayer names set. \n"
+         << endl;
 }
 
 // Returns a random number between 1 and 6, with some flavor text.
