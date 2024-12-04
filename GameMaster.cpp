@@ -64,11 +64,6 @@ int GameMaster::split(string input_string, char separator, string arr[], const i
     return x;
 }
 
-// // Extracts a specific line from a file and returns it as a string
-// string GameMaster::extractSpecificLine(int)
-// { // this function will extract a specific line from a file and return it as a string
-// }
-
 void GameMaster::parseFileInto2DArray(string arr[], string fileName, const int NUM_LINES, const int NUM_ARRAY_ITEMS)
 {
     // take in 1D array

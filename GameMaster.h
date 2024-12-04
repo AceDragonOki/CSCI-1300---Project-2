@@ -19,6 +19,5 @@ public:
     void mainMenu(Player players[], const int PLAYERS_SIZE); // Prints out a menu with all the players and their stats
     bool validateInt(string number); // Checks if a string is an integer (so stoi can be used safely)
     int split(string input_string, char separator, string arr[], const int ARR_SIZE); // Parses an int into a string based on a delimiter, then returns the size. Returns -1 if no delimiter is found.
-    string extractSpecificLine(int lineIndex); // Extracts a specific line from a file and returns it as a string
     void parseFileInto2DArray(string arr[], string fileName, const int NUM_LINES, const int NUM_ARRAY_ITEMS);
 };
