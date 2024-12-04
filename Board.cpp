@@ -1,4 +1,4 @@
-//Worked on by: Alec Ebert, Alex Class
+// Worked on by: Alec Ebert, Alex Class
 
 #include "Board.h"
 #include "Tile.h"
@@ -17,6 +17,7 @@
 
 using namespace std;
 
+// Initializes two tracks
 void Board::initializeBoard()
 {
     // Seed random number generator in your main function once
@@ -29,6 +30,7 @@ void Board::initializeBoard()
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // For time()
 
+// Distributes tiles into a 2D array, weighted by game rules
 void Board::initializeTiles(int laneIndex)
 {
     Tile temp;
@@ -114,7 +116,9 @@ void Board::initializeTiles(int laneIndex)
                     }
                 }
             }
-        } else {
+        }
+        else
+        {
             if (i == total_tiles - 1)
             {
                 // Set the last tile as Orange for "Pride Rock"
@@ -206,6 +210,7 @@ void Board::initializeTiles(int laneIndex)
 //     initializeTiles();
 // }
 
+// Initializes a board for every player currently in the game
 Board::Board(int player_count)
 {
     if (player_count > _MAX_PLAYERS)
@@ -228,6 +233,7 @@ Board::Board(int player_count)
     initializeBoard();
 }
 
+// Returns true if a player is on a tile, false otherwise.
 bool Board::isPlayerOnTile(int player_index, int pos)
 {
     if (_player_position[player_index] == pos)
@@ -237,6 +243,7 @@ bool Board::isPlayerOnTile(int player_index, int pos)
     return false;
 }
 
+// Prints a single tile, in color, to the terminal.
 void Board::displayTile(int player_index, int pos)
 {
     // string space = "                                       ";
@@ -246,37 +253,36 @@ void Board::displayTile(int player_index, int pos)
     // Template for displaying a tile: <line filler space> <color start> |<player symbol or blank space>| <reset color> <line filler space> <endl>
 
     // Determine color to display
-    if (_tiles[player_index][pos].getColor() == 'R')
+    char currentTileColor = _tiles[player_index][pos].getColor();
+
+    switch (currentTileColor)
     {
+    case 'R':
         color = RED;
-    }
-    else if (_tiles[player_index][pos].getColor() == 'G')
-    {
+        break;
+    case 'G':
         color = GREEN;
-    }
-    else if (_tiles[player_index][pos].getColor() == 'B')
-    {
+        break;
+    case 'B':
         color = BLUE;
-    }
-    else if (_tiles[player_index][pos].getColor() == 'U')
-    {
+        break;
+    case 'U':
         color = PURPLE;
-    }
-    else if (_tiles[player_index][pos].getColor() == 'N')
-    {
+        break;
+    case 'N':
         color = BROWN;
-    }
-    else if (_tiles[player_index][pos].getColor() == 'P')
-    {
+        break;
+    case 'P':
         color = PINK;
-    }
-    else if (_tiles[player_index][pos].getColor() == 'O')
-    {
+        break;
+    case 'O':
         color = ORANGE;
-    }
-    else if (_tiles[player_index][pos].getColor() == 'Y')
-    {
+        break;
+    case 'Y':
         color = GREY;
+        break;
+    default:
+        color = GREEN;
     }
 
     if (player == true)
@@ -289,6 +295,7 @@ void Board::displayTile(int player_index, int pos)
     }
 }
 
+// Displays a player's track
 void Board::displayTrack(int player_index)
 {
     for (int i = 0; i < _BOARD_SIZE; i++)
@@ -298,6 +305,7 @@ void Board::displayTrack(int player_index)
     cout << endl;
 }
 
+// Displays the boards (both tracks)
 void Board::displayBoard()
 {
     for (int i = 0; i < 2; i++)
@@ -310,6 +318,7 @@ void Board::displayBoard()
     }
 }
 
+// Moves a player along the board by one tile. Returns true if the last tile is reached.
 bool Board::movePlayer(int player_index)
 {
     // Increment player position
@@ -322,7 +331,8 @@ bool Board::movePlayer(int player_index)
     return false;
 }
 
-int Board::getPlayerPosition(int player_index) const
+// Gets a player's position. Returns -1 if player is not found.
+int Board::getPlayerPosition(int player_index) const // this const is freaking me out but im leaving it in case it was intentional
 {
     if (player_index >= 0 && player_index <= _player_count)
     {
