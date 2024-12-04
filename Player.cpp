@@ -167,4 +167,5 @@ void Player::printStats()
     cout << "Wisdom: " << wisdom << endl;
     cout << "Pride Points: " << pridePoints << endl;
     cout << "Advisor: " << advisor << endl;
+    cout << "---------------------" << endl;
 }
