@@ -16,7 +16,7 @@ private:
     int pridePoints;
     int age;
     string advisor;
-    bool trained;
+    int trained; // 0 for not trained, 1 for trained
     int position;
 public:
     Player ();
@@ -35,8 +35,8 @@ public:
     void setName(string n);
     string getAdvisor();
     void setAdvisor(string a);
-    bool getTrained();
-    void setTrained(bool t);
+    int getTrained();
+    void setTrained(int t);
     int getPosition();
     void setPosition(int pos);
     

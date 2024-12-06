@@ -293,8 +293,13 @@ void Board::displayTile(int track_index, int pos, Player players[], const int NU
         cout << color << "|";
         for (int i = 0; i < NUM_PLAYERS; i++)
         {
-            if (players[i].getPosition() == pos){ // print out all players on the tile
+            if (players[i].getPosition() == pos && track_index == players[i].getTrained()) // print out all players on the tile
+            { 
                 cout << (i + 1);
+            }
+            else if (players[i].getPosition() == pos)
+            {
+                cout << " ";
             }
         }
         cout << "|" << RESET;
@@ -305,7 +310,7 @@ void Board::displayTile(int track_index, int pos, Player players[], const int NU
     }
 }
 
-// Displays a player's track
+// Displays a single track
 void Board::displayTrack(int track_index, Player players[], const int NUM_PLAYERS)
 {
     for (int i = 0; i < _BOARD_SIZE; i++)

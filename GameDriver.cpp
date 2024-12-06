@@ -9,9 +9,10 @@
 using namespace std;
 
 int main(){
-    const int NUM_PLAYERS = 4;
-
     GameMaster gm;
+
+    const int NUM_PLAYERS = 2;
+
     Board board = Board(NUM_PLAYERS);
     Player players[NUM_PLAYERS]; 
 
@@ -21,7 +22,7 @@ int main(){
     board.initializeBoard();
     board.displayBoard(players, NUM_PLAYERS);
 
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < NUM_PLAYERS; i++){
         players[i].printStats();
     }
     

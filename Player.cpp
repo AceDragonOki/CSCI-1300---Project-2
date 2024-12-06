@@ -13,7 +13,7 @@ Player::Player()
     wisdom = 100;
 
     advisor = "";
-    trained = false;
+    trained = 0;
 
     pridePoints = 0;
     age = 1;
@@ -28,7 +28,7 @@ Player::Player(string n, int str, int sta, int wis, int a, int pp)
     age = a;
 
     advisor = "";
-    trained = false;
+    trained = 0;
 
     if (str >= 100 && str <= 1000)
     {
@@ -90,7 +90,7 @@ int Player::getAge()
     return age;
 }
 
-bool Player::getTrained(){
+int Player::getTrained(){
     return trained;
 }
 
@@ -153,7 +153,7 @@ void Player::setAdvisor(string a){
     
 }
 
-void Player::setTrained(bool t){
+void Player::setTrained(int t){
     trained = t;
 }
 
@@ -163,7 +163,7 @@ void Player::trainCub(int str, int sta, int wis)
     stamina += sta;
     strength += str;
     pridePoints -= 5000;
-    trained = true;
+    trained = 1;
 }
 
 void Player::toPrideLand()
@@ -177,10 +177,14 @@ void Player::toPrideLand()
 void Player::printStats()
 {
     cout << name << ", age " << age << endl;
-    cout << "Strength: " << strength << endl;
-    cout << "Stamina: " << stamina << endl;
-    cout << "Wisdom: " << wisdom << endl;
+    cout << "STR: " << strength << " | STA: " << wisdom << " | WIS: " << wisdom << endl;;
     cout << "Pride Points: " << pridePoints << endl;
-    cout << "Advisor: " << advisor << endl;
+    cout << "Advisor: ";
+    if (advisor == ""){
+        cout << "None";
+    } else {
+        cout << advisor;
+    }
+    cout << endl;
     cout << "---------------------" << endl;
 }

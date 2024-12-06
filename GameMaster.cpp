@@ -96,7 +96,7 @@ void GameMaster::parseFileInto2DArray(string arr[][10], string fileName, const i
     }
 }
 
-// Prompts the user to pick a character from the available characters in character.txt. Also ensures the character they choose is not picked by any other players, and assigns the player an ID (playerNumber).
+// Prompts the user to pick a character from the available characters in character.txt. Also asks the player if they would like to train, ensures the character they choose is not picked by any other players, and assigns the player an ID (playerNumber).
 void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
 {
 
@@ -140,6 +140,13 @@ void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
 
         Player newPlayer = Player(chosenPlayerName, str, sta, wis, age, pp);
         players[i] = newPlayer;
+
+        string trainingConfirm = "";
+        cout << "Would you like to train your cub? (+200 STR, STA, and WIS, but -5000 Pride Points. Also places you on the second track.) \nType 'TRAIN' if you would like to train, or anything else to decline." << endl;
+        cin >> trainingConfirm;
+        if (trainingConfirm == "TRAIN"){
+            players[i].trainCub(200, 200, 200);
+        }
     }
     cout << "\nPlayers created. \n"
          << endl;
@@ -187,5 +194,26 @@ Player GameMaster::chooseAPath(Player player)
 
 // // Writes endgame data to a file
 // void GameMaster::writeGameDataToFile(Player players[], const int NUM_PLAYERS){
-
+    // TODO: decide what to write to a file here, and impliment it. Maybe just endgame stats and who won?
 // }
+
+// Prompts the users to select the number of players in the game. Returns the number of players selected. Also whoops, numPlayers needs to be a const, so this might actually all be useless.
+int GameMaster::decideNumPlayers(){
+    string proposedNumPlayers = "";
+    cout << "How many players would you like to have?" << endl;
+    cin >> proposedNumPlayers;
+
+    bool validNumPlayersInputted = false;
+    int numPlayers = -1;
+
+    while (!validNumPlayersInputted){
+        if (validateInt(proposedNumPlayers) && stoi(proposedNumPlayers) > 1){
+            numPlayers = stoi(proposedNumPlayers);
+            validNumPlayersInputted = true;
+        } else {
+            cout << "Invalid number of players requested. Please input an integer between 2 and 10, inclusive." << endl;
+            cin >> proposedNumPlayers;
+        } 
+    }
+    return numPlayers;
+}
