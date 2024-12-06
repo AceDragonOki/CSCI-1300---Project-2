@@ -9,17 +9,20 @@
 using namespace std;
 
 int main(){
-    GameMaster myGM;
+    const int NUM_PLAYERS = 4;
 
-    string my2DArray[10][10];
+    GameMaster gm;
+    Board board = Board(NUM_PLAYERS);
+    Player players[NUM_PLAYERS]; 
 
-    myGM.parseFileInto2DArray(my2DArray, "character.txt", 4);
 
-    for (int row = 0; row < 5; row++){
-        for (int col = 0; col < 6; col++){
-            cout << my2DArray[row][col] << " ";;
-        }
-        cout << endl;
+    gm.characterCreation(players, NUM_PLAYERS);
+
+    board.initializeBoard();
+    board.displayBoard(players, NUM_PLAYERS);
+
+    for (int i = 0; i < 5; i++){
+        players[i].printStats();
     }
     
 }

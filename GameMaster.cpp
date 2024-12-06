@@ -96,15 +96,15 @@ void GameMaster::parseFileInto2DArray(string arr[][10], string fileName, const i
     }
 }
 
-// Prompts the user to pick a character from the available characters in character.txt. Also ensures the character they choose is not picked by any other players.
-void GameMaster::promptForChoosingCharacters(Player players[], const int PLAYERS_SIZE)
+// Prompts the user to pick a character from the available characters in character.txt. Also ensures the character they choose is not picked by any other players, and assigns the player an ID (playerNumber).
+void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
 {
 
     string chosenPlayerName;
-    for (int i = 0; i < PLAYERS_SIZE; i++)
+    for (int i = 0; i < NUM_PLAYERS; i++)
     {
 
-        cout << "Player " << i + 1 << ": Choose your Character (Write in the name)" << endl;
+        cout << "Player " << i + 1 << ": Write your character's name:" << endl;
         cin >> chosenPlayerName;
 
         bool allNamesChecked = false;
@@ -112,7 +112,7 @@ void GameMaster::promptForChoosingCharacters(Player players[], const int PLAYERS
 
         while (!allNamesChecked)
         {
-            for (int j = 0; j < PLAYERS_SIZE; j++)
+            for (int j = 0; j < NUM_PLAYERS; j++)
             {
                 if (needToPickANewName)
                 {
@@ -128,12 +128,27 @@ void GameMaster::promptForChoosingCharacters(Player players[], const int PLAYERS
             allNamesChecked = true;
         }
 
-        Player tempPlayer = players[i];
-        tempPlayer.setName(chosenPlayerName);
-        players[i] = tempPlayer;
+        // TODO: have player set their character's age
+        int age = -1;
+        // TODO: change character.txt and have the players pick a "build" instead of a character
+        // This should also parse builds.txt and assign the new player the attributes listed in the returned build name
+
+        int str = 500;
+        int sta = 500;
+        int wis = 500;
+        int pp = 2000;
+
+        Player newPlayer = Player(chosenPlayerName, str, sta, wis, age, pp);
+        players[i] = newPlayer;
     }
-    cout << "\nPlayer names set. \n"
+    cout << "\nPlayers created. \n"
          << endl;
+}
+
+// Happens during character creation. Reads from builds.txt and prints out the options, then has the player select the option they want. Returns the name of the build they choose.
+string GameMaster::pickABuild(){
+    // TODO: Impliment this
+    return "";
 }
 
 // Returns a random number between 1 and 6, with some flavor text.
@@ -165,7 +180,12 @@ Player GameMaster::chooseAPath(Player player)
 }
 
 // // Prints out a menu with all the players and their stats
-// void GameMaster::mainMenu(Player players[], const int PLAYERS_SIZE)
+// void GameMaster::mainMenu(Player players[], const int NUM_PLAYERS)
 // {
+
+// }
+
+// // Writes endgame data to a file
+// void GameMaster::writeGameDataToFile(Player players[], const int NUM_PLAYERS){
 
 // }

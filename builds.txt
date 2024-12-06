@@ -1,0 +1,5 @@
+buildType|strength|stamina|wisdom|pridePoints
+Strong|1000|500|500|20000
+Staminous|500|1000|500|20000
+Wise|500|500|1000|20000
+Well Rounded|500|500|500|20000

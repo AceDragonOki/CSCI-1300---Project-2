@@ -17,14 +17,15 @@ Player::Player()
 
     pridePoints = 0;
     age = 1;
+    position = 0;
 };
 
-Player::Player(string n, int str, int sta, int wis)
+Player::Player(string n, int str, int sta, int wis, int a, int pp)
 {
     name = n;
 
-    pridePoints = 0;
-    age = 1;
+    pridePoints = pp;
+    age = a;
 
     advisor = "";
     trained = false;
@@ -55,6 +56,8 @@ Player::Player(string n, int str, int sta, int wis)
     {
         wis = 100;
     }
+
+    position = 0;
 };
 
 string Player::getName()
@@ -95,6 +98,10 @@ string Player::getAdvisor(){
     return advisor;
 }
 
+int Player::getPosition(){
+    return position;
+}
+
 void Player::setName(string n)
 {
     name = n;
@@ -125,6 +132,14 @@ void Player::setAge(int a)
     if (a >= 1 && a <= 20)
     {
         age = a;
+    }
+}
+
+void Player::setPosition(int pos){
+    if(pos < 0){
+        cout << "Attempted to reach invalid position." << endl;
+    } else {
+        position = pos;
     }
 }
 

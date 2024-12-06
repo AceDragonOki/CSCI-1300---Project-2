@@ -2,6 +2,7 @@
 
 #include "Board.h"
 #include "Tile.h"
+#include "Player.h"
 #include <iostream>
 #include <string>
 
@@ -211,15 +212,15 @@ void Board::initializeTiles(int laneIndex)
 // }
 
 // Initializes a board for every player currently in the game
-Board::Board(int player_count)
+Board::Board(const int NUM_PLAYERS)
 {
-    if (player_count > _MAX_PLAYERS)
+    if (NUM_PLAYERS > _MAX_PLAYERS)
     {
         _player_count = _MAX_PLAYERS;
     }
     else
     {
-        _player_count = player_count;
+        _player_count = NUM_PLAYERS;
     }
 
     // Initialize player position
@@ -234,26 +235,28 @@ Board::Board(int player_count)
 }
 
 // Returns true if a player is on a tile, false otherwise.
-bool Board::isPlayerOnTile(int player_index, int pos)
+bool Board::isPlayerOnTile(int pos, Player players[], const int NUM_PLAYERS)
 {
-    if (_player_position[player_index] == pos)
+    for (int i = 0; i < NUM_PLAYERS; i++)
     {
-        return true;
+        if (players[i].getPosition() == pos)
+        {
+            return true;
+        }
     }
     return false;
 }
 
 // Prints a single tile, in color, to the terminal.
-void Board::displayTile(int player_index, int pos)
+void Board::displayTile(int track_index, int pos, Player players[], const int NUM_PLAYERS)
 {
     // string space = "                                       ";
     string color = "";
-    int player = isPlayerOnTile(player_index, pos);
 
     // Template for displaying a tile: <line filler space> <color start> |<player symbol or blank space>| <reset color> <line filler space> <endl>
 
     // Determine color to display
-    char currentTileColor = _tiles[player_index][pos].getColor();
+    char currentTileColor = _tiles[track_index][pos].getColor();
 
     switch (currentTileColor)
     {
@@ -285,9 +288,16 @@ void Board::displayTile(int player_index, int pos)
         color = GREEN;
     }
 
-    if (player == true)
+    if (isPlayerOnTile(pos, players, NUM_PLAYERS))
     {
-        cout << color << "|" << (player_index + 1) << "|" << RESET;
+        cout << color << "|";
+        for (int i = 0; i < NUM_PLAYERS; i++)
+        {
+            if (players[i].getPosition() == pos){ // print out all players on the tile
+                cout << (i + 1);
+            }
+        }
+        cout << "|" << RESET;
     }
     else
     {
@@ -296,21 +306,21 @@ void Board::displayTile(int player_index, int pos)
 }
 
 // Displays a player's track
-void Board::displayTrack(int player_index)
+void Board::displayTrack(int track_index, Player players[], const int NUM_PLAYERS)
 {
     for (int i = 0; i < _BOARD_SIZE; i++)
     {
-        displayTile(player_index, i);
+        displayTile(track_index, i, players, NUM_PLAYERS);
     }
     cout << endl;
 }
 
 // Displays the boards (both tracks)
-void Board::displayBoard()
+void Board::displayBoard(Player players[], const int NUM_PLAYERS)
 {
     for (int i = 0; i < 2; i++)
     {
-        displayTrack(i);
+        displayTrack(i, players, NUM_PLAYERS);
         if (i == 0)
         {
             cout << endl; // Add an extra line between the two lanes

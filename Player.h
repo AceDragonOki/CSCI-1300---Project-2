@@ -17,9 +17,10 @@ private:
     int age;
     string advisor;
     bool trained;
+    int position;
 public:
     Player ();
-    Player (string n, int str, int sta, int wis);
+    Player(string n, int str, int sta, int wis, int a, int pp);
     int getStrength();
     void setStrength(int strength);
     int getStamina();
@@ -36,6 +37,9 @@ public:
     void setAdvisor(string a);
     bool getTrained();
     void setTrained(bool t);
+    int getPosition();
+    void setPosition(int pos);
+    
 
     void trainCub(int strength, int stamina, int wisdom);
     void toPrideLand();
