@@ -294,7 +294,28 @@ int GameMaster::evaluateScore(Player player){
     return total;
 }
 
-Player GameMaster::playerTurn(Player player, Board board){//impliment Counsiling Tile, Challenge Tile, and Normal Tile
+Player GameMaster::playerTurn(Player player, Board board){//feel free to add more actions during a turn
+    cout << player.getName() << ", it's your turn! What would you like to do?\n1. Board Info\n2. Player Info\n3. Move (Warning: This action ends your turn)" << endl;
+    int choice;
+    cin >> choice;
+    while(choice != 3){
+        if(choice == 1){ // might remove board info since you need the player array and number of player info as well.
+            cout << "Haven't actually implimented this yet lol" << endl;
+
+        } else if(choice == 2){
+            player.printStats();
+        } else {
+            cout << "That is not a valid choice."<< endl;
+        } 
+        cout << "What would you like to do?\n1. Board Info\n2. Player Info\n3. Move (Warning: This action ends your turn)" << endl;
+        cin >> choice;
+    }
+
+    player = movementAction(player,board);
+    return player;
+}
+
+Player GameMaster::movementAction(Player player, Board board){//still need to impliment Counsiling Tile, Challenge Tile, and Normal Tile
     int movement = spinTheWheel();
 
     player.movePosition(movement);

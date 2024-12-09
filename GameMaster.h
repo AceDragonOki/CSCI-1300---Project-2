@@ -25,5 +25,6 @@ public:
     int decideNumPlayers(); // Prompts the users to select the number of players in the game. Returns the number of players selected.
     int pickAnAge(); // Prompts the user to select an age for their character.
     int evaluateScore(Player player); //calculates the final score for the player
+    Player movementAction(Player player, Board board);
     Player playerTurn(Player player, Board board);
 };
