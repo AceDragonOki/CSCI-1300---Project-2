@@ -162,7 +162,7 @@ void Player::trainCub(int str, int sta, int wis)
     wisdom += wis;
     stamina += sta;
     strength += str;
-    pridePoints -= 5000;
+    pridePoints -= 1000;
     trained = 1;
 }
 

@@ -21,6 +21,7 @@ public:
     int split(string input_string, char separator, string arr[], const int ARR_SIZE); // Parses an int into a string based on a delimiter, then returns the size. Returns -1 if no delimiter is found.
     void parseFileInto2DArray(string arr[][10], string fileName, const int NUM_ARRAY_ITEMS); // Reads a txt file and parses it into a passed-in 2D array. Note that the passed-in array must have width 10, and that fileName should include the file extension (e.g. "character.txt"). Array size of 10 was chosen arbitrarily, but should fit all cases.
     void writeGameDataToFile(Player players[], const int NUM_PLAYERS); // Writes endgame data to a file
-    string pickABuild(); // Happens during character creation. Reads from builds.txt and prints out the options, then has the player select the option they want. Returns the name of the build they choose.
+    string pickABuild(string builds[][10], const int NUMBER_OF_BUILDS); // Happens during character creation. Reads from builds array and prints out the options, then has the player select the option they want. Returns the name of the build they choose.
     int decideNumPlayers(); // Prompts the users to select the number of players in the game. Returns the number of players selected.
+    int pickAnAge(); // Prompts the user to select an age for their character.
 };

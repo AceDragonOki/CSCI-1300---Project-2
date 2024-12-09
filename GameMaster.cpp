@@ -77,10 +77,11 @@ void GameMaster::parseFileInto2DArray(string arr[][10], string fileName, const i
     string currentLine;
     int lineIndex = 0;
     bool firstLineSkipped = false;
-    
+
     while (getline(file, currentLine))
     {
-        if (!firstLineSkipped){ // skips header
+        if (!firstLineSkipped)
+        { // skips header
             firstLineSkipped = true;
             continue;
         }
@@ -128,10 +129,14 @@ void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
             allNamesChecked = true;
         }
 
-        // TODO: have player set their character's age
-        int age = -1;
-        // TODO: change character.txt and have the players pick a "build" instead of a character
-        // This should also parse builds.txt and assign the new player the attributes listed in the returned build name
+        int age = pickAnAge();
+
+        // const int NUMBER_OF_BUILDS = 4; // adjust this if number of builds ever changes
+        // string builds[NUMBER_OF_BUILDS][10];
+
+        // parseFileInto2DArray(builds, "builds.txt", NUMBER_OF_BUILDS);
+
+        // string build = pickABuild(builds, NUMBER_OF_BUILDS);
 
         int str = 500;
         int sta = 500;
@@ -142,9 +147,10 @@ void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
         players[i] = newPlayer;
 
         string trainingConfirm = "";
-        cout << "Would you like to train your cub? (+200 STR, STA, and WIS, but -5000 Pride Points. Also places you on the second track.) \nType 'TRAIN' if you would like to train, or anything else to decline." << endl;
+        cout << "Would you like to train your cub? (+200 STR, STA, and WIS, but -1000 Pride Points. Also places you on the second track.) \nType 'TRAIN' if you would like to train, or anything else to decline." << endl;
         cin >> trainingConfirm;
-        if (trainingConfirm == "TRAIN"){
+        if (trainingConfirm == "TRAIN")
+        {
             players[i].trainCub(200, 200, 200);
         }
     }
@@ -152,10 +158,66 @@ void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
          << endl;
 }
 
-// Happens during character creation. Reads from builds.txt and prints out the options, then has the player select the option they want. Returns the name of the build they choose.
-string GameMaster::pickABuild(){
-    // TODO: Impliment this
-    return "";
+// Prompts the user to select an age for their character.
+int GameMaster::pickAnAge()
+{
+    int age = -1;
+    string proposedAge = "";
+    cout << "Please type in your character's age: " << endl;
+    cin >> proposedAge;
+    while (true)
+    {
+        if (validateInt(proposedAge) && stoi(proposedAge) > 0)
+        {
+            age = stoi(proposedAge);
+            break;
+        }
+        cout << "That is not a valid age. Please input a non-negative integer." << endl;
+        cin >> proposedAge;
+    }
+
+    return age;
+}
+
+// Happens during character creation. Reads from builds array and prints out the options, then has the player select the option they want. Returns the name of the build they choose.
+string GameMaster::pickABuild(string builds[][10], const int NUMBER_OF_BUILDS)
+{
+    string playerInput;
+    cout << "Please select a build for your cub. Your options are: ";
+    for (int i = 0; i < NUMBER_OF_BUILDS; i++)
+    {
+        if (i == NUMBER_OF_BUILDS - 1)
+        {
+            cout << "or " << builds[i][0];
+        }
+        else
+        {
+            cout << builds[i][0] << ", ";
+        }
+    }
+    cout << endl;
+    cin >> playerInput;
+
+    bool properBuildFound = false;
+
+    while (!properBuildFound)
+    {
+        for (int i = 0; i < NUMBER_OF_BUILDS; i++)
+        {
+            cout << builds[i][0] << endl; // why the fuck... even if these are the same, it gets mad
+            // alex will debug this later.....
+            if (playerInput == builds[i][0])
+            {
+                properBuildFound = true;
+                break;
+            }
+        }
+        cout << "That build does not exist. Please select a build from the list. Ensure selections are made with proper capitalization." << endl;
+        cin >> playerInput;
+    }
+
+    cout << "Build selected: " << playerInput << endl;
+    return playerInput;
 }
 
 // Returns a random number between 1 and 6, with some flavor text.
@@ -194,11 +256,12 @@ Player GameMaster::chooseAPath(Player player)
 
 // // Writes endgame data to a file
 // void GameMaster::writeGameDataToFile(Player players[], const int NUM_PLAYERS){
-    // TODO: decide what to write to a file here, and impliment it. Maybe just endgame stats and who won?
+// TODO: decide what to write to a file here, and impliment it. Maybe just endgame stats and who won?
 // }
 
 // Prompts the users to select the number of players in the game. Returns the number of players selected. Also whoops, numPlayers needs to be a const, so this might actually all be useless.
-int GameMaster::decideNumPlayers(){
+int GameMaster::decideNumPlayers()
+{
     string proposedNumPlayers = "";
     cout << "How many players would you like to have?" << endl;
     cin >> proposedNumPlayers;
@@ -206,14 +269,18 @@ int GameMaster::decideNumPlayers(){
     bool validNumPlayersInputted = false;
     int numPlayers = -1;
 
-    while (!validNumPlayersInputted){
-        if (validateInt(proposedNumPlayers) && stoi(proposedNumPlayers) > 1){
+    while (!validNumPlayersInputted)
+    {
+        if (validateInt(proposedNumPlayers) && stoi(proposedNumPlayers) > 1)
+        {
             numPlayers = stoi(proposedNumPlayers);
             validNumPlayersInputted = true;
-        } else {
+        }
+        else
+        {
             cout << "Invalid number of players requested. Please input an integer between 2 and 10, inclusive." << endl;
             cin >> proposedNumPlayers;
-        } 
+        }
     }
     return numPlayers;
 }
