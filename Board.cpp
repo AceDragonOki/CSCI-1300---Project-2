@@ -355,3 +355,9 @@ int Board::getPlayerPosition(int player_index) const // this const is freaking m
     }
     return -1;
 }
+
+Tile Board::getTile(int track, int position){
+    return _tiles[track][position];
+}
+
+

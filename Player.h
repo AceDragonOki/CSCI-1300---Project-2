@@ -44,4 +44,5 @@ public:
     void trainCub(int strength, int stamina, int wisdom);
     void toPrideLand();
     void printStats();
+    void movePosition(int spaces); //moves the player a given number of spaces
 };

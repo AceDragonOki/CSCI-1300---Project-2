@@ -188,3 +188,11 @@ void Player::printStats()
     cout << endl;
     cout << "---------------------" << endl;
 }
+
+void Player::movePosition(int spaces){
+    if(getPosition()+spaces < 0){
+        setPosition(0);
+    } else {
+        setPosition(getPosition()+spaces);
+    }
+}

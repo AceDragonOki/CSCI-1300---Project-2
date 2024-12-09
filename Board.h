@@ -25,4 +25,5 @@ public:
     void displayBoard(Player players[], const int NUM_PLAYERS);
     bool movePlayer(int player_index);
     int getPlayerPosition(int player_index) const;
+    Tile getTile(int track, int position); // returns tile value
 };

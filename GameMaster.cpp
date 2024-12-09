@@ -284,3 +284,56 @@ int GameMaster::decideNumPlayers()
     }
     return numPlayers;
 }
+
+int GameMaster::evaluateScore(Player player){
+    int total = 0;
+    total += player.getPridePoints();
+    total += (player.getStamina()/100)*1000;
+    total += (player.getWisdom()/100)*1000;
+    total += (player.getStrength()/100)*1000;
+    return total;
+}
+
+Player GameMaster::playerTurn(Player player, Board board){//impliment Counsiling Tile, Challenge Tile, and Normal Tile
+    int movement = spinTheWheel();
+
+    player.movePosition(movement);
+
+    //check for game end condition here later on
+
+    int position = player.getPosition();
+    int track = player.getTrained();
+    Tile tile = board.getTile(track, position);
+    
+    char color = tile.getColor();
+    if(color == 'B'){ //oasis tile
+        cout << "You've found a peaceful oasis! Take a deep breath and relax...\nYou gained 200 stamina\nYou gained 200 strength\nYou gained 200 wisdom\nYou gained an extra turn" << endl;
+        player.setStamina(player.getStamina()+200);
+        player.setStrength(player.getStrength()+200);
+        player.setWisdom(player.getWisdom()+200);
+        player = playerTurn(player, board); // recursion!!! Let's go!!!
+
+    }else if(color == 'P'){ //Counsiling Tile
+
+    }else if(color == 'R'){ //Graveyard Tile
+        cout << "Uh-oh, you've stumbled into the Graveyard!\nYou lose 100 stamina\nYou lose 100 strength\nYou lose 100 wisdom\nYou move back 10 spaces" << endl;
+        player.setStamina(player.getStamina()-100);
+        player.setStrength(player.getStrength()-100);
+        player.setWisdom(player.getWisdom()-100);
+        player.movePosition(-10);
+
+    }else if(color == 'U'){ //Challenge Tile
+
+    }else if(color == 'N'){//Hyena Tile
+        cout << "The Hyenas are on the prowl! They drag you back to where you were last, and the journey comes at a cost.\nYou lose 300 stamina\nYou move back to your original position" << endl;
+        player.setStamina(player.getStamina()-300);
+        player.movePosition(-movement);
+
+    }else{//Normal Tile
+        if(rand() % 2 == 0){
+
+        }
+    }
+
+    return player;
+}

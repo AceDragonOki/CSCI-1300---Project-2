@@ -24,4 +24,6 @@ public:
     string pickABuild(string builds[][10], const int NUMBER_OF_BUILDS); // Happens during character creation. Reads from builds array and prints out the options, then has the player select the option they want. Returns the name of the build they choose.
     int decideNumPlayers(); // Prompts the users to select the number of players in the game. Returns the number of players selected.
     int pickAnAge(); // Prompts the user to select an age for their character.
+    int evaluateScore(Player player); //calculates the final score for the player
+    Player playerTurn(Player player, Board board);
 };
