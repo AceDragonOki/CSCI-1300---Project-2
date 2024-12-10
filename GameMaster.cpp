@@ -152,6 +152,8 @@ void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
         if (trainingConfirm == "TRAIN")
         {
             players[i].trainCub(200, 200, 200);
+        } else {
+            players[i].setPridePoints(7000);//add 5000 pride points for taking it risky
         }
     }
     cout << "\nPlayers created. \n"
@@ -223,7 +225,7 @@ string GameMaster::pickABuild(string builds[][10], const int NUMBER_OF_BUILDS)
 // Returns a random number between 1 and 6, with some flavor text.
 int GameMaster::spinTheWheel()
 {
-    int number = rand() % 6;
+    int number = (rand() % 6)+1;
     cout << "You rolled: " << number << endl;
     return number;
 }
@@ -294,16 +296,16 @@ int GameMaster::evaluateScore(Player player){
     return total;
 }
 
-Player GameMaster::playerTurn(Player player, Board board){//feel free to add more actions during a turn
-    cout << player.getName() << ", it's your turn! What would you like to do?\n1. Board Info\n2. Player Info\n3. Move (Warning: This action ends your turn)" << endl;
+Player GameMaster::playerTurn(int playerNumber, Board board, Player players[], int NUM_PLAYERS, string events[][10], const int NUM_EVENTS, string riddles[][10], const int NUM_RIDDLES){//feel free to add more actions during a turn
+    cout << players[playerNumber].getName() << ", it's your turn! What would you like to do?\n1. Board Info\n2. Player Info\n3. Move (Warning: This action ends your turn)" << endl;
     int choice;
     cin >> choice;
     while(choice != 3){
         if(choice == 1){ // might remove board info since you need the player array and number of player info as well.
-            cout << "Haven't actually implimented this yet lol" << endl;
+            board.displayBoard(players, NUM_PLAYERS);
 
         } else if(choice == 2){
-            player.printStats();
+            players[playerNumber].printStats();
         } else {
             cout << "That is not a valid choice."<< endl;
         } 
@@ -311,50 +313,83 @@ Player GameMaster::playerTurn(Player player, Board board){//feel free to add mor
         cin >> choice;
     }
 
-    player = movementAction(player,board);
-    return player;
+    players[playerNumber] = movementAction(playerNumber, board, players, NUM_PLAYERS, events, NUM_EVENTS, riddles, NUM_RIDDLES);
+    return players[playerNumber];
 }
 
-Player GameMaster::movementAction(Player player, Board board){//still need to impliment Counsiling Tile, Challenge Tile, and Normal Tile
+Player GameMaster::movementAction(int playerNumber, Board board, Player players[], int NUM_PLAYERS,string events[][10], const int NUM_EVENTS, string riddles[][10], const int NUM_RIDDLES){//still need to impliment Counsiling Tile, Challenge Tile, and Normal Tile
     int movement = spinTheWheel();
 
-    player.movePosition(movement);
+    players[playerNumber].movePosition(movement);
 
     //check for game end condition here later on
 
-    int position = player.getPosition();
-    int track = player.getTrained();
+    int position = players[playerNumber].getPosition();
+    int track = players[playerNumber].getTrained();
     Tile tile = board.getTile(track, position);
+
+    board.displayBoard(players, NUM_PLAYERS);
     
     char color = tile.getColor();
     if(color == 'B'){ //oasis tile
         cout << "You've found a peaceful oasis! Take a deep breath and relax...\nYou gained 200 stamina\nYou gained 200 strength\nYou gained 200 wisdom\nYou gained an extra turn" << endl;
-        player.setStamina(player.getStamina()+200);
-        player.setStrength(player.getStrength()+200);
-        player.setWisdom(player.getWisdom()+200);
-        player = playerTurn(player, board); // recursion!!! Let's go!!!
+        players[playerNumber].setStamina(players[playerNumber].getStamina()+200);
+        players[playerNumber].setStrength(players[playerNumber].getStrength()+200);
+        players[playerNumber].setWisdom(players[playerNumber].getWisdom()+200);
+        players[playerNumber] = playerTurn(playerNumber, board, players, NUM_PLAYERS, events, NUM_EVENTS, riddles, NUM_RIDDLES); // recursion!!! Let's go!!!
 
     }else if(color == 'P'){ //Counsiling Tile
 
     }else if(color == 'R'){ //Graveyard Tile
         cout << "Uh-oh, you've stumbled into the Graveyard!\nYou lose 100 stamina\nYou lose 100 strength\nYou lose 100 wisdom\nYou move back 10 spaces" << endl;
-        player.setStamina(player.getStamina()-100);
-        player.setStrength(player.getStrength()-100);
-        player.setWisdom(player.getWisdom()-100);
-        player.movePosition(-10);
+        players[playerNumber].setStamina(players[playerNumber].getStamina()-100);
+        players[playerNumber].setStrength(players[playerNumber].getStrength()-100);
+        players[playerNumber].setWisdom(players[playerNumber].getWisdom()-100);
+        players[playerNumber].movePosition(-10);
+
+        board.displayBoard(players, NUM_PLAYERS);
 
     }else if(color == 'U'){ //Challenge Tile
 
+        cout << "Time for a test of wits! Answer correctly, and you'll earn a boost of 500 Points to your Wisdom Trait" << endl;
+        int chosenRiddle = rand() % NUM_RIDDLES;
+        string input;
+        cout << riddles[chosenRiddle][0] << endl;
+        cin >> input;
+
+        if(input == riddles[chosenRiddle][1]){
+            cout << "Your cleverness pays off! Your wisdom increases by 500" << endl;
+            players[playerNumber].setWisdom(players[playerNumber].getWisdom()+500);
+        } else {
+            cout << "You got it wrong," << endl;
+        }
+
     }else if(color == 'N'){//Hyena Tile
         cout << "The Hyenas are on the prowl! They drag you back to where you were last, and the journey comes at a cost.\nYou lose 300 stamina\nYou move back to your original position" << endl;
-        player.setStamina(player.getStamina()-300);
-        player.movePosition(-movement);
+        players[playerNumber].setStamina(players[playerNumber].getStamina()-300);
+        players[playerNumber].movePosition(-movement);
+
+        board.displayBoard(players, NUM_PLAYERS);
 
     }else{//Normal Tile
         if(rand() % 2 == 0){
-
+            int chosenEvent = rand() % NUM_EVENTS;
+            cout << events[chosenEvent][0] << endl;
+            players[playerNumber].setPridePoints(players[playerNumber].getPridePoints()+stoi(events[chosenEvent][3]));
         }
     }
 
-    return player;
+    return players[playerNumber];
 }
+
+bool GameMaster::gameEndCondition(Player players[], int NUM_PLAYERS){
+    for(int i = 0; i < NUM_PLAYERS; i++){
+        if(players[i].getPosition() < 51){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+

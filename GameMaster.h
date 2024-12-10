@@ -25,6 +25,7 @@ public:
     int decideNumPlayers(); // Prompts the users to select the number of players in the game. Returns the number of players selected.
     int pickAnAge(); // Prompts the user to select an age for their character.
     int evaluateScore(Player player); //calculates the final score for the player
-    Player movementAction(Player player, Board board);
-    Player playerTurn(Player player, Board board);
+    Player movementAction(int playerNumber, Board board, Player players[], int NUM_PLAYERS,string events[][10], const int NUM_EVENTS, string riddles[][10], const int NUM_RIDDLES);
+    Player playerTurn(int playerNumber, Board board, Player players[], int NUM_PLAYERS, string events[][10], const int NUM_EVENTS, string riddles[][10], const int NUM_RIDDLES);
+    bool gameEndCondition(Player players[], int NUM_PLAYERS);
 };

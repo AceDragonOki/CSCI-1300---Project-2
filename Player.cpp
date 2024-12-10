@@ -138,6 +138,8 @@ void Player::setAge(int a)
 void Player::setPosition(int pos){
     if(pos < 0){
         cout << "Attempted to reach invalid position." << endl;
+    }else if(pos > 51){
+        position = 51;
     } else {
         position = pos;
     }
