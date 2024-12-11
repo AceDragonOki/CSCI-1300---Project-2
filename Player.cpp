@@ -164,7 +164,6 @@ void Player::trainCub(int str, int sta, int wis, string advisors[][10], const in
     wisdom += wis;
     stamina += sta;
     strength += str;
-    pridePoints -= 1000;
     trained = 1;
     advisor = pickAdvisor(advisors, NUM_ADVISORS);
 }

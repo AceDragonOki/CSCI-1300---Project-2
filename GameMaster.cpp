@@ -131,30 +131,37 @@ void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS, stri
 
         int age = pickAnAge();
 
-        // TODO: Impliment builds
-        // const int NUMBER_OF_BUILDS = 4; // adjust this if number of builds ever changes
-        // string builds[NUMBER_OF_BUILDS][10];
+        const int NUMBER_OF_BUILDS = 4; // adjust this if number of builds ever changes
+        string builds[NUMBER_OF_BUILDS][10];
 
-        // parseFileInto2DArray(builds, "builds.txt", NUMBER_OF_BUILDS);
+        parseFileInto2DArray(builds, "builds.txt", NUMBER_OF_BUILDS);
 
-        // string build = pickABuild(builds, NUMBER_OF_BUILDS);
+        string build = pickABuild(builds, NUMBER_OF_BUILDS);
 
-        int str = 500;
-        int sta = 500;
-        int wis = 500;
-        int pp = 2000;
+        int str = -1;
+        int sta = -1;
+        int wis = -1;
+        int pridePoints = 2000;
 
-        Player newPlayer = Player(chosenPlayerName, str, sta, wis, age, pp);
+        for (int i = 0; i < NUMBER_OF_BUILDS; i++){
+            if (build == builds[i][0]){
+                str = stoi(builds[i][1]);
+                sta = stoi(builds[i][2]);
+                wis = stoi(builds[i][3]);
+            }
+        }
+
+        Player newPlayer = Player(chosenPlayerName, str, sta, wis, age, pridePoints);
         players[i] = newPlayer;
 
         string trainingConfirm = "";
-        cout << "Would you like to train your cub? (+200 STR, STA, and WIS, but -1000 Pride Points. Also places you on the second track.) \nType 'TRAIN' if you would like to train, or anything else to decline. Should you decline, you will gain 5000 Pride Points, for bravery." << endl;
+        cout << "Would you like to train your cub? (+200 STR, STA, and WIS). Also places you on the second track.) \nType 'TRAIN' if you would like to train, or anything else to decline. Should you decline, you will gain 3000 Pride Points, for bravery." << endl;
         cin >> trainingConfirm;
         if (trainingConfirm == "TRAIN")
         {
             players[i].trainCub(200, 200, 200, advisors, NUM_ADVISORS);
         } else {
-            players[i].setPridePoints(7000);//add 5000 pride points for taking it risky
+            players[i].setPridePoints(3000); //add 3000 pride points for taking it risky
         }
     }
     cout << "\nPlayers created. \n"
@@ -203,17 +210,17 @@ string GameMaster::pickABuild(string builds[][10], const int NUMBER_OF_BUILDS)
 
     bool properBuildFound = false;
 
-    while (!properBuildFound)
+    while (true)
     {
         for (int i = 0; i < NUMBER_OF_BUILDS; i++)
         {
-            cout << builds[i][0] << endl; // why the fuck... even if these are the same, it gets mad
-            // alex will debug this later.....
             if (playerInput == builds[i][0])
             {
                 properBuildFound = true;
-                break;
             }
+        }
+        if (properBuildFound){
+            break;
         }
         cout << "That build does not exist. Please select a build from the list. Ensure selections are made with proper capitalization." << endl;
         cin >> playerInput;
@@ -227,7 +234,7 @@ string GameMaster::pickABuild(string builds[][10], const int NUMBER_OF_BUILDS)
 int GameMaster::spinTheWheel()
 {
     int number = (rand() % 6)+1;
-    cout << "You rolled: " << number << endl;
+    cout << "You rolled: " << number << "." << endl;
     return number;
 }
 
