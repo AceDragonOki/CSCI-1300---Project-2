@@ -240,6 +240,7 @@ Player GameMaster::selectAdvisor(int playerNumber, Player players[], int NUM_PLA
 
         if(choice == players[playerNumber].getAdvisor()){
             cout << "You have decided to stick with " << choice << " as your advisor." << endl;
+            return players[playerNumber];
         }
         
         if(choice == "Rafiki" || choice == "Nala" || choice == "Sarabi" || choice == "Zazu" || choice == "Sarafina"){
