@@ -525,3 +525,18 @@ bool GameMaster::gameEndCondition(Player players[], int NUM_PLAYERS)
 
     return true;
 }
+
+void GameMaster::results(Player players[], int NUM_PLAYERS){
+    Player highestScorer = players[0];
+    cout << "The Final Evaluation...\n" << endl;
+    for(int i = 0; i < NUM_PLAYERS; i++){
+        cout << players[i].getName() << ", You earned " << players[i].getPridePoints() << " Pride points." << endl;
+        cout << "Along with that, your strength was " << players[i].getStrength() << ", your stamina was " << players[i].getStamina() << ", and your wisdom was " << players[i].getWisdom() << "." << endl;
+        cout << "With that being said, your Total Score is: \n" << evaluateScore(players[i]) << "\n" << endl;
+        if(evaluateScore(players[i]) > evaluateScore(highestScorer)){
+            highestScorer = players[i];
+        }
+    }
+
+    cout << "The winner of this game, with the impressive score of " << evaluateScore(highestScorer) << " is " << highestScorer.getName() << "!!!" << endl;
+}

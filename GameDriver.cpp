@@ -46,6 +46,7 @@ int main(){
             }
         }
     }
+    gm.results(players, NUM_PLAYERS);
     
 
     //board.displayBoard(players, NUM_PLAYERS);
