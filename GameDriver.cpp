@@ -22,8 +22,8 @@ int main(){
 
     gm.characterCreation(players, NUM_PLAYERS, advisors, NUM_ADVISORS);
 
-    const int NUM_EVENTS = 6;
-    const int NUM_RIDDLES = 3;
+    const int NUM_EVENTS = 19;
+    const int NUM_RIDDLES = 11;
 
     string events[NUM_EVENTS][10];
     string riddles[NUM_RIDDLES][10];
