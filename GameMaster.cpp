@@ -397,7 +397,7 @@ Player GameMaster::playerTurn(int playerNumber, Board board, Player players[], i
 }
 
 Player GameMaster::movementAction(int playerNumber, Board board, Player players[], int NUM_PLAYERS, string events[][10], const int NUM_EVENTS, string riddles[][10], const int NUM_RIDDLES, string advisors[][10], const int NUM_ADVISORS)
-{ // TODO: still need to impliment Challenge Tile and Normal Tile
+{ // TODO: still need to impliment Normal Tile
     int movement = spinTheWheel();
 
     players[playerNumber].movePosition(movement);
@@ -473,14 +473,40 @@ Player GameMaster::movementAction(int playerNumber, Board board, Player players[
 
         board.displayBoard(players, NUM_PLAYERS);
     }
-    else
+    else if(color == 'O')
+    {
+        cout << "Congrats, you've made it to Pride Rock!!!\nThis is where your journey comes to an end..." << endl;
+    } 
+    else if(color == 'G')
     { // Normal Tile
         // TODO: Make advisors relevant to quest items
         if (rand() % 2 == 0)
         {
-            int chosenEvent = rand() % NUM_EVENTS;
-            cout << events[chosenEvent][0] << endl;
-            players[playerNumber].setPridePoints(players[playerNumber].getPridePoints() + stoi(events[chosenEvent][3]));
+            bool okEvent = false;
+            while(!okEvent){
+                int chosenEvent = rand() % NUM_EVENTS;
+                    if(stoi(events[chosenEvent][1]) != players[playerNumber].getTrained()){
+                        if(stoi(events[chosenEvent][3]) < 0){
+                            okEvent = true;
+                            cout << events[chosenEvent][0] << endl;
+                            if(events[chosenEvent][2] == players[playerNumber].getAdvisor()){
+                                cout << players[playerNumber].getAdvisor() << " protects you." << endl;;
+                            } else {
+                                cout << "You lose " << -stoi(events[chosenEvent][3]) << " Pride." << endl;
+                                players[playerNumber].setPridePoints(players[playerNumber].getPridePoints() + stoi(events[chosenEvent][3]));
+                            }
+                        } else {
+                            if(events[chosenEvent][2] == players[playerNumber].getAdvisor() || events[chosenEvent][2] == "none"){
+                                cout << events[chosenEvent][0] << endl;
+                                players[playerNumber].setPridePoints(players[playerNumber].getPridePoints() + stoi(events[chosenEvent][3]));
+                                cout << "You gain " << events[chosenEvent][3] << " Pride." << endl;
+                                okEvent = true;
+                            }
+                        }
+
+                    }
+            }
+            
         }
     }
 

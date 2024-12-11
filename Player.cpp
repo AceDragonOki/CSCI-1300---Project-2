@@ -198,6 +198,8 @@ string Player::pickAdvisor(string advisors[][10], const int NUM_ADVISORS){
         }
     }
 
+    cout << "You have choosen " << chosenAdvisor << "!" << endl;
+
     return chosenAdvisor;
 }
 
