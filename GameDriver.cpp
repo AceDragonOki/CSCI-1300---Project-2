@@ -16,7 +16,7 @@ int main(){
     Board board = Board(NUM_PLAYERS);
     Player players[NUM_PLAYERS]; 
 
-    const int NUM_ADVISORS = 5;
+    const int NUM_ADVISORS = 7;
     string advisors[NUM_ADVISORS][10];
     gm.parseFileInto2DArray(advisors, "advisors.txt",NUM_ADVISORS);
 

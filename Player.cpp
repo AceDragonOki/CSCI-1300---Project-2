@@ -212,7 +212,7 @@ void Player::toPrideLand()
 void Player::printStats()
 {
     cout << name << ", age " << age << endl;
-    cout << "STR: " << strength << " | STA: " << wisdom << " | WIS: " << wisdom << endl;;
+    cout << "STR: " << strength << " | STA: " << wisdom << " | WIS: " << wisdom << endl;
     cout << "Pride Points: " << pridePoints << endl;
     cout << "Advisor: ";
     if (advisor == ""){

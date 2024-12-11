@@ -1,6 +1,8 @@
-Advisior|Ability|Selection Status
-Rafiki|Invisibility (the ability to become un-seen)|Available
-Nala|Night Vision (the ability to see clearly in darkness)|Available
-Sarabi|Energy Manipulation (the ability to shape and control the properties of energy)|Available
-Zazu|Weather Control (the ability to influence and manipulate weather patterns)|Available
-Sarafina|Super Speed (the ability to run 4x faster than the maximum speed of lions)|Available
+Advisior|Ability|Selection Status|Quote
+Rafiki|Invisibility (the ability to become un-seen)|Available|The past can hurt. But you can either run from it, or learn from it.
+Nala|Night Vision (the ability to see clearly in darkness)|Available|Danger? Ha! I laugh in the face of danger. Ha, ha, ha, ha!
+Sarabi|Energy Manipulation (the ability to shape and control the properties of energy)|Available|You may have sentenced us to death, but so be it.
+Zazu|Weather Control (the ability to influence and manipulate weather patterns)|Available|Well, the buzz from the bees is that the leopards are in a bit of a spot. And the baboons are going ape over this. Of course, the giraffes are acting like they're above it all...
+Sarafina|Super Speed (the ability to run 4x faster than the maximum speed of lions)|Available|I don't really have that many lines in the movie!
+Timon|Comedic Prowess (the ability to laugh his way out of sticky situations)|Available|Look, kid, bad things happen, and you can't do anything about it, right? Wrong! When the world turns its back on you, you turn your back on the world!
+Pumbaa|Strong Stomach (the ability to eat... basically anything)|Available|Home is where your rump rests. Heh.
