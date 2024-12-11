@@ -153,6 +153,7 @@ void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS, stri
         if (trainingConfirm == "TRAIN")
         {
             players[i].trainCub(200, 200, 200, advisors, NUM_ADVISORS);
+            players[i] = selectAdvisor(i, players, NUM_PLAYERS);
         } else {
             players[i].setPridePoints(7000);//add 5000 pride points for taking it risky
         }
@@ -231,6 +232,37 @@ int GameMaster::spinTheWheel()
     return number;
 }
 
+Player GameMaster::selectAdvisor(int playerNumber, Player players[], int NUM_PLAYERS){
+    string choice;
+    bool canBeChosen = false;
+    while(!canBeChosen){
+        cout << "Which advisor do you wish to seek assistance from:\n(Options are: Rafiki, Nala, Sarabi, Zazu, Sarafina) " << endl;
+        cin >> choice;
+
+        if(choice == players[playerNumber].getAdvisor()){
+            cout << "You have decided to stick with " << choice << " as your advisor." << endl;
+        }
+        
+        if(choice == "Rafiki" || choice == "Nala" || choice == "Sarabi" || choice == "Zazu" || choice == "Sarafina"){
+            canBeChosen = true;
+            for(int i = 0; i < NUM_PLAYERS; i++){
+                if(choice == players[i].getAdvisor()){
+                    cout << choice << " is already advising " << players[i].getName() << "." << endl;
+                    canBeChosen = false;
+                }
+            }
+        } else {
+            cout << choice << " is not a valid option." << endl;
+        }
+    }
+
+    cout << choice << " is your new advisor!" << endl;
+    players[playerNumber].setAdvisor(choice);
+
+    return players[playerNumber];
+
+}
+
 // // Prompts the user to choose a path, then returns a modified Player copy with the chosen path
 // Player GameMaster::chooseAPath(Player player)
 // {
@@ -297,6 +329,8 @@ int GameMaster::evaluateScore(Player player){
     return total;
 }
 
+
+
 Player GameMaster::playerTurn(int playerNumber, Board board, Player players[], int NUM_PLAYERS, string events[][10], const int NUM_EVENTS, string riddles[][10], const int NUM_RIDDLES){//feel free to add more actions during a turn
     cout << players[playerNumber].getName() << ", it's your turn! What would you like to do?\n1. Board Info\n2. Player Info\n3. Move (Warning: This action ends your turn)" << endl;
     int choice;
@@ -340,6 +374,11 @@ Player GameMaster::movementAction(int playerNumber, Board board, Player players[
         players[playerNumber] = playerTurn(playerNumber, board, players, NUM_PLAYERS, events, NUM_EVENTS, riddles, NUM_RIDDLES); // recursion!!! Let's go!!!
 
     }else if(color == 'P'){ //Counsiling Tile
+        cout << "Welcome to the land of enrichment - \nWhen landing on this tile, your Stamina, Strength, and Wisdom Points increase by 300, and you get to choose an advisor from the available list of advisors. \nIf you already have an advisor, you can switch your advisor out for a different one from the list or keep your original advisor. \nDon’t forget - an advisor can protect you from random events that negatively impact your Pride Points." << endl;
+        players[playerNumber].setStamina(players[playerNumber].getStamina()+300);
+        players[playerNumber].setStrength(players[playerNumber].getStrength()+300);
+        players[playerNumber].setWisdom(players[playerNumber].getWisdom()+300);
+        players[playerNumber] = selectAdvisor(playerNumber, players, NUM_PLAYERS);
 
     }else if(color == 'R'){ //Graveyard Tile
         cout << "Uh-oh, you've stumbled into the Graveyard!\nYou lose 100 stamina\nYou lose 100 strength\nYou lose 100 wisdom\nYou move back 10 spaces" << endl;

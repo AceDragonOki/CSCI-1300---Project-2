@@ -16,6 +16,7 @@ public:
     void characterCreation(Player players[], const int NUM_PLAYERS, string advisors[][10], const int NUM_ADVISORS); // Prompts the user to pick a character from the available characters in character.txt. Also ensures the character they choose is not picked by any other players, and assigns the player an ID (playerNumber).
     int spinTheWheel(); // Returns a random number between 1 and 6, with some flavor text.
     Player chooseAPath(Player player); // Prompts the user to choose a path
+    Player selectAdvisor(int playerNumber, Player players[], int NUM_PLAYERS);
     void mainMenu(Player players[], const int NUM_PLAYERS); // Prints out a menu with all the players and their stats
     bool validateInt(string number); // Checks if a string is an integer (so stoi can be used safely)
     int split(string input_string, char separator, string arr[], const int ARR_SIZE); // Parses an int into a string based on a delimiter, then returns the size. Returns -1 if no delimiter is found.
