@@ -10,10 +10,3 @@ Gained wisdom from observing the rituals of Rafiki|1|Rafiki|1000
 Stampede of buffalo follows you into a ravine|2|Sarafina|-400
 Pack of wise-cracking hyenas gathers around you|2|Timon|-300
 Bad hunting day, only bugs to eat|2|Pumbaa|-400
-You learn about a new way to eat grubs|1|Timon|1000
-Enemy spies spread rumors to lower your reputation|2|Zazu|-300
-You find a lone gazelle! You hunt it successfully|2|Sarafina|1000
-A ostrich buries its head in the sand. You learn how to keep your head low|2|none|400
-A jackal plays a trick on you, but you get the last laugh|0|Timon|800
-An elephant, in a fit of rage, rushes towards you|2|Rafiki|-400
-Woah! A pangolin! I love pangolins!|2|none|300

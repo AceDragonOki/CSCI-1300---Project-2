@@ -9,3 +9,10 @@ I can write, but I can't read. What am I? (one word, lowercase)|ofstream
 I am included first in almost every CSCI 1300 project. What am I? (one word, lowercase)|iostream
 I make sure every name is standard. What am I? (three words, coding line, with semicolon)|using namespace std;
 I am a numeric datatype that will work in a switch statement. What am I? (one word, unabbreviated, lowercase)|integer
+I can hold many different types of data. What am I? (one word, lowercase, unabbreviated)|structure
+I am like an array, yet I can't be used in this project. What am I? (one word, lowercase)|vector
+I am the class most CSCI majors take after 1300. What is my name? (format: DEPARTMENT, NUMBER (i.e. APPM 1350))|CSCI 2270
+I can write, but I can't read. What am I? (one word, lowercase)|ofstream
+I am included first in almost every CSCI 1300 project. What am I? (one word, lowercase)|iostream
+I make sure every name is standard. What am I? (three words, coding line, with semicolon)|using namespace std;
+I am a numeric datatype that will work in a switch statement. What am I? (one word, unabbreviated, lowercase)|integer

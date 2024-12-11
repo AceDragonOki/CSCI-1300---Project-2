@@ -20,16 +20,16 @@ int main(){
     string advisors[NUM_ADVISORS][10];
     gm.parseFileInto2DArray(advisors, "advisors.txt",NUM_ADVISORS);
 
-    gm.characterCreation(players, NUM_PLAYERS, advisors, NUM_ADVISORS);
-
-    const int NUM_EVENTS = 18;
+    const int NUM_EVENTS = 12; // cursed
     const int NUM_RIDDLES = 10;
 
     string events[NUM_EVENTS][10];
     string riddles[NUM_RIDDLES][10];
 
-    gm.parseFileInto2DArray(events, "randomEvents.txt",NUM_EVENTS);
+    gm.parseFileInto2DArray(events, "randomEventsShorter.txt",NUM_EVENTS);
     gm.parseFileInto2DArray(riddles, "riddles.txt",NUM_RIDDLES);
+
+    gm.characterCreation(players, NUM_PLAYERS, advisors, NUM_ADVISORS);
 
     srand(time(0)); //sets up the random numbers
 
