@@ -4,4 +4,4 @@ Fatigue from intense training with pride warriors|0|Sarabi|-200
 Challenging night watch duty under pitch-black conditions|1|Nala|-400
 Extra energy from bountiful season|1|none|800
 Observed a rare natural phenomenon|0|none|600
-Gained wisdom from observing Rafiki’s rituals|1|Rafiki|500
+Gained wisdom from observing the rituals of Rafiki|1|Rafiki|500

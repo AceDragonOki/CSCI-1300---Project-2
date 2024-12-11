@@ -16,8 +16,11 @@ int main(){
     Board board = Board(NUM_PLAYERS);
     Player players[NUM_PLAYERS]; 
 
+    const int NUM_ADVISORS = 5;
+    string advisors[NUM_ADVISORS][10];
+    gm.parseFileInto2DArray(advisors, "advisors.txt",NUM_ADVISORS);
 
-    gm.characterCreation(players, NUM_PLAYERS);
+    gm.characterCreation(players, NUM_PLAYERS, advisors, NUM_ADVISORS);
 
     const int NUM_EVENTS = 6;
     const int NUM_RIDDLES = 3;
@@ -25,8 +28,8 @@ int main(){
     string events[NUM_EVENTS][10];
     string riddles[NUM_RIDDLES][10];
 
-    gm.parseFileInto2DArray(events, "randomEvents.txt",6);
-    gm.parseFileInto2DArray(riddles, "riddles.txt",3);
+    gm.parseFileInto2DArray(events, "randomEvents.txt",NUM_EVENTS);
+    gm.parseFileInto2DArray(riddles, "riddles.txt",NUM_RIDDLES);
 
     srand(time(0)); //sets up the random numbers
 

@@ -13,7 +13,7 @@ using namespace std;
 class GameMaster
 {
 public:
-    void characterCreation(Player players[], const int NUM_PLAYERS); // Prompts the user to pick a character from the available characters in character.txt. Also ensures the character they choose is not picked by any other players, and assigns the player an ID (playerNumber).
+    void characterCreation(Player players[], const int NUM_PLAYERS, string advisors[][10], const int NUM_ADVISORS); // Prompts the user to pick a character from the available characters in character.txt. Also ensures the character they choose is not picked by any other players, and assigns the player an ID (playerNumber).
     int spinTheWheel(); // Returns a random number between 1 and 6, with some flavor text.
     Player chooseAPath(Player player); // Prompts the user to choose a path
     void mainMenu(Player players[], const int NUM_PLAYERS); // Prints out a menu with all the players and their stats

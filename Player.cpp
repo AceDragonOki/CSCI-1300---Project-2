@@ -159,13 +159,33 @@ void Player::setTrained(int t){
     trained = t;
 }
 
-void Player::trainCub(int str, int sta, int wis)
+void Player::trainCub(int str, int sta, int wis, string advisors[][10], const int NUM_ADVISORS)
 {
     wisdom += wis;
     stamina += sta;
     strength += str;
     pridePoints -= 1000;
     trained = 1;
+    advisor = pickAdvisor(advisors, NUM_ADVISORS);
+}
+
+string Player::pickAdvisor(string advisors[][10], const int NUM_ADVISORS){
+    // TODO: remove advisor from list when selected, so all advisors chosen are unique
+    cout << "Please select an advisor (write their number):" << endl;
+    for (int i = 0; i < NUM_ADVISORS; i++){
+        cout << i + 1 << ") " << advisors[i][0] << endl;
+    }
+    int playerInput;
+    string chosenAdvisor = "";
+    while (true){
+        cin >> playerInput;
+        if (playerInput > 0 && playerInput <= NUM_ADVISORS){
+            chosenAdvisor = advisors[playerInput - 1][0];
+            break;
+        }
+        cout << "Please input a positive integer corresponding to an advisor." << endl;
+    }
+    return chosenAdvisor;
 }
 
 void Player::toPrideLand()

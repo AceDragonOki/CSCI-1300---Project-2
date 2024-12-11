@@ -98,7 +98,7 @@ void GameMaster::parseFileInto2DArray(string arr[][10], string fileName, const i
 }
 
 // Prompts the user to pick a character from the available characters in character.txt. Also asks the player if they would like to train, ensures the character they choose is not picked by any other players, and assigns the player an ID (playerNumber).
-void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
+void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS, string advisors[][10], const int NUM_ADVISORS)
 {
 
     string chosenPlayerName;
@@ -131,6 +131,7 @@ void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
 
         int age = pickAnAge();
 
+        // TODO: Impliment builds
         // const int NUMBER_OF_BUILDS = 4; // adjust this if number of builds ever changes
         // string builds[NUMBER_OF_BUILDS][10];
 
@@ -147,11 +148,11 @@ void GameMaster::characterCreation(Player players[], const int NUM_PLAYERS)
         players[i] = newPlayer;
 
         string trainingConfirm = "";
-        cout << "Would you like to train your cub? (+200 STR, STA, and WIS, but -1000 Pride Points. Also places you on the second track.) \nType 'TRAIN' if you would like to train, or anything else to decline." << endl;
+        cout << "Would you like to train your cub? (+200 STR, STA, and WIS, but -1000 Pride Points. Also places you on the second track.) \nType 'TRAIN' if you would like to train, or anything else to decline. Should you decline, you will gain 5000 Pride Points, for bravery." << endl;
         cin >> trainingConfirm;
         if (trainingConfirm == "TRAIN")
         {
-            players[i].trainCub(200, 200, 200);
+            players[i].trainCub(200, 200, 200, advisors, NUM_ADVISORS);
         } else {
             players[i].setPridePoints(7000);//add 5000 pride points for taking it risky
         }
@@ -230,25 +231,25 @@ int GameMaster::spinTheWheel()
     return number;
 }
 
-// Prompts the user to choose a path, then returns a modified Player copy with the chosen path
-Player GameMaster::chooseAPath(Player player)
-{
-    int choice;
-    cout << "Do you wish to train before you head to the Promise Land? (1 for yes, 0 for no): " << endl;
-    cin >> choice;
-    if (choice == 0)
-    {
-        cout << "You head straight to the Promise Land: " << endl;
-        player.toPrideLand();
-    }
-    else if (choice == 1)
-    {
-        cout << "You decided to train before embarking: " << endl;
-        player.trainCub(2000, 2000, 1000);
-    }
+// // Prompts the user to choose a path, then returns a modified Player copy with the chosen path
+// Player GameMaster::chooseAPath(Player player)
+// {
+//     int choice;
+//     cout << "Do you wish to train before you head to the Promise Land? (1 for yes, 0 for no): " << endl;
+//     cin >> choice;
+//     if (choice == 0)
+//     {
+//         cout << "You head straight to the Promise Land: " << endl;
+//         player.toPrideLand();
+//     }
+//     else if (choice == 1)
+//     {
+//         cout << "You decided to train before embarking: " << endl;
+//         player.trainCub(2000, 2000, 1000);
+//     }
 
-    return player;
-}
+//     return player;
+// }
 
 // // Prints out a menu with all the players and their stats
 // void GameMaster::mainMenu(Player players[], const int NUM_PLAYERS)
@@ -332,7 +333,7 @@ Player GameMaster::movementAction(int playerNumber, Board board, Player players[
     
     char color = tile.getColor();
     if(color == 'B'){ //oasis tile
-        cout << "You've found a peaceful oasis! Take a deep breath and relax...\nYou gained 200 stamina\nYou gained 200 strength\nYou gained 200 wisdom\nYou gained an extra turn" << endl;
+        cout << "You've found a peaceful oasis! Take a deep breath and relax...\n(You gained 200 stamina)\n(You gained 200 strength)\n(You gained 200 wisdom)\n(You gained an extra turn)" << endl;
         players[playerNumber].setStamina(players[playerNumber].getStamina()+200);
         players[playerNumber].setStrength(players[playerNumber].getStrength()+200);
         players[playerNumber].setWisdom(players[playerNumber].getWisdom()+200);
@@ -351,7 +352,7 @@ Player GameMaster::movementAction(int playerNumber, Board board, Player players[
 
     }else if(color == 'U'){ //Challenge Tile
 
-        cout << "Time for a test of wits! Answer correctly, and you'll earn a boost of 500 Points to your Wisdom Trait" << endl;
+        cout << "Time for a test of wits! Answer correctly, and you'll earn a boost of 500 Points to your Wisdom Trait." << endl;
         int chosenRiddle = rand() % NUM_RIDDLES;
         string input;
         cout << riddles[chosenRiddle][0] << endl;
@@ -361,7 +362,7 @@ Player GameMaster::movementAction(int playerNumber, Board board, Player players[
             cout << "Your cleverness pays off! Your wisdom increases by 500" << endl;
             players[playerNumber].setWisdom(players[playerNumber].getWisdom()+500);
         } else {
-            cout << "You got it wrong," << endl;
+            cout << "Sorry, you got it wrong." << endl;
         }
 
     }else if(color == 'N'){//Hyena Tile
@@ -372,6 +373,7 @@ Player GameMaster::movementAction(int playerNumber, Board board, Player players[
         board.displayBoard(players, NUM_PLAYERS);
 
     }else{//Normal Tile
+        //TODO: Make advisors relevant to quest items
         if(rand() % 2 == 0){
             int chosenEvent = rand() % NUM_EVENTS;
             cout << events[chosenEvent][0] << endl;

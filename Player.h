@@ -41,8 +41,9 @@ public:
     void setPosition(int pos);
     
 
-    void trainCub(int strength, int stamina, int wisdom);
+    void trainCub(int str, int sta, int wis, string advisors[][10], const int NUM_ADVISORS);
     void toPrideLand();
     void printStats();
     void movePosition(int spaces); //moves the player a given number of spaces
+    string pickAdvisor(string advisors[][10], const int NUM_ADVISORS);
 };
