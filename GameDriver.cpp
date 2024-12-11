@@ -42,7 +42,7 @@ int main(){
     while(!gm.gameEndCondition(players, NUM_PLAYERS)){
         for(int i = 0; i < NUM_PLAYERS; i++){
             if(players[i].getPosition() < 51){
-                players[i] = gm.playerTurn(i, board, players, NUM_PLAYERS, events, NUM_EVENTS, riddles, NUM_RIDDLES);
+                players[i] = gm.playerTurn(i, board, players, NUM_PLAYERS, events, NUM_EVENTS, riddles, NUM_RIDDLES, advisors, NUM_ADVISORS);
             }
         }
     }

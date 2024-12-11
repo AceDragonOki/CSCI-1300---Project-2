@@ -170,21 +170,35 @@ void Player::trainCub(int str, int sta, int wis, string advisors[][10], const in
 }
 
 string Player::pickAdvisor(string advisors[][10], const int NUM_ADVISORS){
-    // TODO: remove advisor from list when selected, so all advisors chosen are unique
     cout << "Please select an advisor (write their number):" << endl;
     for (int i = 0; i < NUM_ADVISORS; i++){
-        cout << i + 1 << ") " << advisors[i][0] << endl;
+        cout << i + 1 << ") " << advisors[i][0] << " (" << advisors[i][2] << ")" << endl;
     }
-    int playerInput;
+
+    string playerInput;
+    int playerInputParsed = 0;
     string chosenAdvisor = "";
+
     while (true){
         cin >> playerInput;
-        if (playerInput > 0 && playerInput <= NUM_ADVISORS){
-            chosenAdvisor = advisors[playerInput - 1][0];
-            break;
+
+        try { // code so bad they made me pull out the try catch block :sob:
+            playerInputParsed = stoi(playerInput);
+        } catch(...) {
+            playerInputParsed = 0;
         }
-        cout << "Please input a positive integer corresponding to an advisor." << endl;
+
+        if (playerInputParsed > 0 && playerInputParsed <= NUM_ADVISORS && advisors[playerInputParsed - 1][2] == "Available"){
+            chosenAdvisor = advisors[playerInputParsed - 1][0];
+            advisors[playerInputParsed - 1][2] = "Taken";
+            break;
+        } else if (advisors[playerInputParsed - 1][2] == "Taken"){
+            cout << "Please select an advisor that hasn't already been taken." << endl;
+        } else {
+            cout << "Please input a positive integer corresponding to an advisor." << endl;
+        }
     }
+
     return chosenAdvisor;
 }
 
