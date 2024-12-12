@@ -344,18 +344,30 @@ int GameMaster::evaluateScore(Player player)
 
 Player GameMaster::playerTurn(int playerNumber, Board board, Player players[], int NUM_PLAYERS, string events[][10], const int NUM_EVENTS, string riddles[][10], const int NUM_RIDDLES, string advisors[][10], const int NUM_ADVISORS)
 { // feel free to add more actions during a turn
-    cout << players[playerNumber].getName() << ", it's your turn! What would you like to do?\n1. Board Info\n2. Player Info\n3. View Advisor\n4. Move (Warning: This action ends your turn)" << endl;
+    cout << players[playerNumber].getName() << ", it's your turn! What would you like to do?\n1. Board Info\n2. Players Info\n3. View Advisor\n4. View Current Evaluated Score\n5. Move (Warning: This action ends your turn)" << endl;
     int choice;
     cin >> choice;
-    while (choice != 4)
+    while (choice != 5)
     {
         if (choice == 1)
-        { // might remove board info since you need the player array and number of player info as well.
+        { 
             board.displayBoard(players, NUM_PLAYERS);
         }
         else if (choice == 2)
         {
-            players[playerNumber].printStats();
+            cout << "Who's player info would you like to print out? (Type the number next to the player name)" << endl;
+            for(int i = 0; i < NUM_PLAYERS; i++){
+                cout << i+1 << ". " << players[i].getName() << endl;
+            }
+            string secondChoice = "";
+            cin >> secondChoice;
+            while(!validateInt(secondChoice) || stoi(secondChoice) > NUM_PLAYERS || stoi(secondChoice) < 1){
+                cout <<"That is an invalid input, type in the number next to the desired Player" << endl;
+                cin >> secondChoice;
+            }
+
+
+            players[stoi(secondChoice)-1].printStats();
         }
         else if (choice == 3)
         {
@@ -387,12 +399,14 @@ Player GameMaster::playerTurn(int playerNumber, Board board, Player players[], i
                     cout << endl;
                 }
             }
+        } else if(choice == 4){
+            cout << "Your current Evaluated Score is: " <<evaluateScore(players[playerNumber]) << endl;
         }
         else
         {
             cout << "That is not a valid choice." << endl;
         }
-        cout << "What would you like to do?\n1. Board Info\n2. Player Info\n3. View Advisor\n4. Move (Warning: This action ends your turn)" << endl;
+        cout << "What would you like to do?\n1. Board Info\n2. Players Info\n3. View Advisor\n4. View Current Evaluated Score\n5. Move (Warning: This action ends your turn)" << endl;
         cin >> choice;
     }
 
