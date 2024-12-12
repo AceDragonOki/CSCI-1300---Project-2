@@ -9,6 +9,8 @@ class Tile{
     private:
         char color;
         int event;
+        bool isSpecialTile;
+        string info;
     public: 
         Tile();
         Tile(char col, int eve);
@@ -16,4 +18,8 @@ class Tile{
         void setColor(char col);
         int getEvent();
         void setEvent(int eve);
+        bool getIsSpecialTile();
+        void setIsSpecialTile(bool s);
+        string getInfo();
+        void setInfo(string i);
 };
