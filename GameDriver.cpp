@@ -11,7 +11,7 @@ using namespace std;
 int main(){
     GameMaster gm;
 
-    const int NUM_PLAYERS = 2;
+    const int NUM_PLAYERS = 4;
 
     Board board = Board(NUM_PLAYERS);
     Player players[NUM_PLAYERS]; 
@@ -47,8 +47,10 @@ int main(){
         }
     }
     gm.results(players, NUM_PLAYERS);
-    
 
-    //board.displayBoard(players, NUM_PLAYERS);
+    board.displayBoard(players, NUM_PLAYERS);
     
+    string endGameScores[NUM_PLAYERS][2];
+    gm.sortFinalScores(endGameScores, players, NUM_PLAYERS);
+    gm.writeFinalPlayerScores("topScores.txt", endGameScores, NUM_PLAYERS);
 }

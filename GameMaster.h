@@ -30,4 +30,6 @@ public:
     Player playerTurn(int playerNumber, Board board, Player players[], int NUM_PLAYERS, string events[][10], const int NUM_EVENTS, string riddles[][10], const int NUM_RIDDLES, string advisors[][10], const int NUM_ADVISORS);
     bool gameEndCondition(Player players[], int NUM_PLAYERS);
     void results(Player players[], int NUM_PLAYERS);
+    void sortFinalScores(string playersWithScores[][2], Player players[], int NUM_PLAYERS);
+    void writeFinalPlayerScores(string fileName, string playersWithScores[][2], int NUM_PLAYERS);
 };

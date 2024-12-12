@@ -1,11 +1,4 @@
-Name|PridePoints
-Test|10000
-Test2|9000
-Test3|8000
-Test4|7000
-Test5|6000
-Test6|5000
-Test7|4000
-Test8|3000
-Test9|2000
-Test10|1000
+Top three from last game's results:
+1. Ringo, with 12000 points.
+2. Paul, with 9000 points.
+3. John, with 8000 points.

@@ -359,8 +359,10 @@ Player GameMaster::playerTurn(int playerNumber, Board board, Player players[], i
         }
         else if (choice == 3)
         {
-            if (players[playerNumber].getAdvisor() == ""){
-                cout << "\nYou do not have an advisor.\n" << endl;
+            if (players[playerNumber].getAdvisor() == "")
+            {
+                cout << "\nYou do not have an advisor.\n"
+                     << endl;
                 break;
             }
 
@@ -377,7 +379,9 @@ Player GameMaster::playerTurn(int playerNumber, Board board, Player players[], i
                     if (advisorInput == "STAT")
                     {
                         cout << advisors[i][1] << endl;
-                    } else {
+                    }
+                    else
+                    {
                         cout << advisors[i][0] << ": \"" << advisors[i][3] << "\"" << endl;
                     }
                     cout << endl;
@@ -473,40 +477,48 @@ Player GameMaster::movementAction(int playerNumber, Board board, Player players[
 
         board.displayBoard(players, NUM_PLAYERS);
     }
-    else if(color == 'O')
+    else if (color == 'O')
     {
         cout << "Congrats, you've made it to Pride Rock!!!\nThis is where your journey comes to an end..." << endl;
-    } 
-    else if(color == 'G')
+    }
+    else if (color == 'G')
     { // Normal Tile
         // TODO: Make advisors relevant to quest items
         if (rand() % 2 == 0)
         {
             bool okEvent = false;
-            while(!okEvent){
+            while (!okEvent)
+            {
                 int chosenEvent = rand() % NUM_EVENTS;
-                    if(stoi(events[chosenEvent][1]) != players[playerNumber].getTrained()){
-                        if(stoi(events[chosenEvent][3]) < 0){
-                            okEvent = true;
-                            cout << events[chosenEvent][0] << endl;
-                            if(events[chosenEvent][2] == players[playerNumber].getAdvisor()){
-                                cout << players[playerNumber].getAdvisor() << " protects you." << endl;;
-                            } else {
-                                cout << "You lose " << -stoi(events[chosenEvent][3]) << " Pride." << endl;
-                                players[playerNumber].setPridePoints(players[playerNumber].getPridePoints() + stoi(events[chosenEvent][3]));
-                            }
-                        } else {
-                            if(events[chosenEvent][2] == players[playerNumber].getAdvisor() || events[chosenEvent][2] == "none"){
-                                cout << events[chosenEvent][0] << endl;
-                                players[playerNumber].setPridePoints(players[playerNumber].getPridePoints() + stoi(events[chosenEvent][3]));
-                                cout << "You gain " << events[chosenEvent][3] << " Pride." << endl;
-                                okEvent = true;
-                            }
+                if (stoi(events[chosenEvent][1]) != players[playerNumber].getTrained())
+                {
+                    if (stoi(events[chosenEvent][3]) < 0)
+                    {
+                        okEvent = true;
+                        cout << events[chosenEvent][0] << endl;
+                        if (events[chosenEvent][2] == players[playerNumber].getAdvisor())
+                        {
+                            cout << players[playerNumber].getAdvisor() << " protects you." << endl;
+                            ;
                         }
-
+                        else
+                        {
+                            cout << "You lose " << -stoi(events[chosenEvent][3]) << " Pride." << endl;
+                            players[playerNumber].setPridePoints(players[playerNumber].getPridePoints() + stoi(events[chosenEvent][3]));
+                        }
                     }
+                    else
+                    {
+                        if (events[chosenEvent][2] == players[playerNumber].getAdvisor() || events[chosenEvent][2] == "none")
+                        {
+                            cout << events[chosenEvent][0] << endl;
+                            players[playerNumber].setPridePoints(players[playerNumber].getPridePoints() + stoi(events[chosenEvent][3]));
+                            cout << "You gain " << events[chosenEvent][3] << " Pride." << endl;
+                            okEvent = true;
+                        }
+                    }
+                }
             }
-            
         }
     }
 
@@ -526,17 +538,66 @@ bool GameMaster::gameEndCondition(Player players[], int NUM_PLAYERS)
     return true;
 }
 
-void GameMaster::results(Player players[], int NUM_PLAYERS){
+void GameMaster::results(Player players[], int NUM_PLAYERS)
+{
     Player highestScorer = players[0];
-    cout << "The Final Evaluation...\n" << endl;
-    for(int i = 0; i < NUM_PLAYERS; i++){
+    cout << "The Final Evaluation...\n"
+         << endl;
+    for (int i = 0; i < NUM_PLAYERS; i++)
+    {
         cout << players[i].getName() << ", You earned " << players[i].getPridePoints() << " Pride points." << endl;
         cout << "Along with that, your strength was " << players[i].getStrength() << ", your stamina was " << players[i].getStamina() << ", and your wisdom was " << players[i].getWisdom() << "." << endl;
-        cout << "With that being said, your Total Score is: \n" << evaluateScore(players[i]) << "\n" << endl;
-        if(evaluateScore(players[i]) > evaluateScore(highestScorer)){
+        cout << "With that being said, your Total Score is: \n"
+             << evaluateScore(players[i]) << "\n"
+             << endl;
+        if (evaluateScore(players[i]) > evaluateScore(highestScorer))
+        {
             highestScorer = players[i];
         }
     }
 
     cout << "The winner of this game, with the impressive score of " << evaluateScore(highestScorer) << " is " << highestScorer.getName() << "!!!" << endl;
+}
+
+void GameMaster::sortFinalScores(string playersWithScores[][2], Player players[], int NUM_PLAYERS)
+{ // SORTING ALGORITHM!!
+
+    for (int i = 0; i < NUM_PLAYERS; i++)
+    {
+        playersWithScores[i][0] = players[i].getName();
+        playersWithScores[i][1] = to_string(evaluateScore(players[i]));
+    }
+
+    bool swapped;
+    for (int i = 0; i < NUM_PLAYERS - 1; i++)
+    {
+        swapped = false;
+        for (int j = 0; j < NUM_PLAYERS - 1; j++)
+        {
+            if (stoi(playersWithScores[j][1]) < stoi(playersWithScores[j + 1][1]))
+            {
+                int temp = stoi(playersWithScores[j][1]);
+                playersWithScores[j][1] = playersWithScores[j + 1][1];
+                playersWithScores[j + 1][1] = to_string(temp);
+
+                swapped = true;
+            }
+        }
+        if (!swapped)
+        {
+            break;
+        }
+    }
+}
+
+void GameMaster::writeFinalPlayerScores(string fileName, string playersWithScores[][2], int NUM_PLAYERS){
+    ofstream file(fileName);
+
+    file << "Top three from last game's results:" << endl;
+
+    for (int i = 0; i < 3; i++){
+        file << i+1 << ". " << playersWithScores[i][0] << ", with " << playersWithScores[i][1] << " points." << endl;
+    }
+
+    file.close();
 }
