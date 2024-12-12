@@ -79,7 +79,7 @@ void GameMaster::parseFileInto2DArray(string arr[][10], string fileName, const i
     bool firstLineSkipped = false;
 
     while (getline(file, currentLine))
-    {
+    {     
         if (!firstLineSkipped)
         { // skips header
             firstLineSkipped = true;
@@ -89,12 +89,15 @@ void GameMaster::parseFileInto2DArray(string arr[][10], string fileName, const i
         split(currentLine, '|', thisLinesArray, 10);
 
         // copying the values of thisLinesArray into the elements of arr[][]
-        for (int i = 0; i < NUM_ARRAY_ITEMS; i++)
-        {
-            arr[lineIndex][i] = thisLinesArray[i];
+        for (int i = 0; i < 10; i++)
+        {   
+            if (thisLinesArray[i] != ""){
+                arr[lineIndex][i] = thisLinesArray[i];
+            }
         }
         lineIndex++;
     }
+    file.close();
 }
 
 // Prompts the user to pick a character from the available characters in character.txt. Also asks the player if they would like to train, ensures the character they choose is not picked by any other players, and assigns the player an ID (playerNumber).
@@ -497,7 +500,6 @@ Player GameMaster::movementAction(int playerNumber, Board board, Player players[
     }
     else if (color == 'G')
     { // Normal Tile
-        // TODO: Make advisors relevant to quest items
         if (rand() % 2 == 0)
         {
             bool okEvent = false;
@@ -594,6 +596,10 @@ void GameMaster::sortFinalScores(string playersWithScores[][2], Player players[]
                 playersWithScores[j][1] = playersWithScores[j + 1][1];
                 playersWithScores[j + 1][1] = to_string(temp);
 
+                string tempString = playersWithScores[j][0];
+                playersWithScores[j][0] = playersWithScores[j + 1][0];
+                playersWithScores[j + 1][0] = tempString;
+
                 swapped = true;
             }
         }
@@ -607,9 +613,9 @@ void GameMaster::sortFinalScores(string playersWithScores[][2], Player players[]
 void GameMaster::writeFinalPlayerScores(string fileName, string playersWithScores[][2], int NUM_PLAYERS){
     ofstream file(fileName);
 
-    file << "Top three from last game's results:" << endl;
+    file << "Last game's results:" << endl;
 
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < NUM_PLAYERS; i++){
         file << i+1 << ". " << playersWithScores[i][0] << ", with " << playersWithScores[i][1] << " points." << endl;
     }
 

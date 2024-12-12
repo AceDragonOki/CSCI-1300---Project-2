@@ -20,13 +20,13 @@ int main(){
     string advisors[NUM_ADVISORS][10];
     gm.parseFileInto2DArray(advisors, "advisors.txt",NUM_ADVISORS);
 
-    const int NUM_EVENTS = 12; // cursed
-    const int NUM_RIDDLES = 10;
+    const int NUM_EVENTS = 18;
+    const int NUM_RIDDLES = 9;
 
     string events[NUM_EVENTS][10];
     string riddles[NUM_RIDDLES][10];
 
-    gm.parseFileInto2DArray(events, "randomEventsShorter.txt",NUM_EVENTS);
+    gm.parseFileInto2DArray(events, "randomEvents.txt",NUM_EVENTS);
     gm.parseFileInto2DArray(riddles, "riddles.txt",NUM_RIDDLES);
 
     gm.characterCreation(players, NUM_PLAYERS, advisors, NUM_ADVISORS);
@@ -47,8 +47,6 @@ int main(){
         }
     }
     gm.results(players, NUM_PLAYERS);
-
-    board.displayBoard(players, NUM_PLAYERS);
     
     string endGameScores[NUM_PLAYERS][2];
     gm.sortFinalScores(endGameScores, players, NUM_PLAYERS);
