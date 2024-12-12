@@ -36,9 +36,9 @@ bool Tile::getIsSpecialTile(){
 void Tile::setIsSpecialTile(bool s){
     isSpecialTile = s;
 }
-string Tile::getInfo(){
-    return info;
+bool Tile::getExists(){
+    return exists;
 }
-void Tile::setInfo(string i){
-    info = i;
+void Tile::setExists(bool e){
+    exists = e;
 }

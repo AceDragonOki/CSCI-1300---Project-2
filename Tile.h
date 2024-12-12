@@ -4,13 +4,15 @@
  - Tile type varies based on the numeric value of event.
 */
 
+
 #pragma once
+
 class Tile{
     private:
         char color;
         int event;
         bool isSpecialTile;
-        string info;
+        bool exists;
     public: 
         Tile();
         Tile(char col, int eve);
@@ -20,6 +22,6 @@ class Tile{
         void setEvent(int eve);
         bool getIsSpecialTile();
         void setIsSpecialTile(bool s);
-        string getInfo();
-        void setInfo(string i);
+        bool getExists();
+        void setExists(bool e);
 };
