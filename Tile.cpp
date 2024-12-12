@@ -30,3 +30,15 @@ void Tile::setEvent(int eve)
 {
     event = eve;
 }
+bool Tile::getIsSpecialTile(){
+    return isSpecialTile;
+}
+void Tile::setIsSpecialTile(bool s){
+    isSpecialTile = s;
+}
+string Tile::getInfo(){
+    return info;
+}
+void Tile::setInfo(string i){
+    info = i;
+}
